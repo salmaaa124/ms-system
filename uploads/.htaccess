@@ -1,0 +1,5 @@
+# Allow image access from the uploads folder but prevent script execution
+<FilesMatch "\.(php|phtml|phar|html|htm)$">
+    Require all denied
+</FilesMatch>
+Options -Indexes
