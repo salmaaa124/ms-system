@@ -4,7 +4,7 @@
  */
 return [
     // Branding
-    'app_name'          => 'نيوروسكان MS',
+    'app_name'          => ' MS',
     'app_tagline'       => 'تحليل متقدم للرنين المغناطيسي للكشف عن التصلب المتعدد',
 
     // Navigation
@@ -62,10 +62,10 @@ return [
 
     // Team page
     'team_title'        => 'فريق العمل',
-    'team_subtitle'     => 'العقول وراء نيوروسكان MS',
+    'team_subtitle'     => 'العقول وراء MS',
     'supervisor'        => 'المشرف على المشروع',
     'team_member'       => 'عضو الفريق',
 
     // Footer
-    'footer_text'       => '© 2026 نيوروسكان MS · مشروع تخرج',
+    'footer_text'       => '© 2026 MS · مشروع تخرج',
 ];

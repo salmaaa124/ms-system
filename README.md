@@ -140,4 +140,4 @@ Edit the names in `team.php` to reflect your own graduation project members.
 
 ---
 
-© 2026 NeuroScan MS · Graduation Project
+© 2026  MS · Graduation Project

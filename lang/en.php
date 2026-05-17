@@ -4,7 +4,7 @@
  */
 return [
     // Branding
-    'app_name'          => 'NeuroScan MS',
+    'app_name'          => ' MS',
     'app_tagline'       => 'Advanced MRI Analysis for Multiple Sclerosis Detection',
 
     // Navigation
@@ -62,10 +62,10 @@ return [
 
     // Team page
     'team_title'        => 'Our Team',
-    'team_subtitle'     => 'The minds behind NeuroScan MS',
+    'team_subtitle'     => 'The minds behind  MS',
     'supervisor'        => 'Project Supervisor',
     'team_member'       => 'Team Member',
 
     // Footer
-    'footer_text'       => '© 2026 NeuroScan MS · Graduation Project',
+    'footer_text'       => '© 2026  MS · Graduation Project',
 ];
