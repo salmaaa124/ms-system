@@ -75,70 +75,35 @@ function handleUpload($fileField) {
  * Returns ['result' => 'Positive'|'Negative', 'confidence' => float, 'notes' => string]
  */
 function analyseMRI($absoluteImagePath) {
-    if (OPENAI_API_KEY === '') {
-        return simulateMRI();
+    $apiUrl = 'https://overrun-earpiece-fox.ngrok-free.dev/predict';
+
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL            => $apiUrl,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => [
+            'image' => new CURLFile($absoluteImagePath)
+        ],
+        CURLOPT_TIMEOUT => 60,
+    ]);
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data = json_decode($response, true);
+
+    // تحقق إن الرد صح
+    if (!$data || !isset($data['Prediction'])) {
+        return simulateMRI(); // fallback
     }
 
-    try {
-        $mime   = mime_content_type($absoluteImagePath) ?: 'image/jpeg';
-        $b64    = base64_encode(file_get_contents($absoluteImagePath));
-        $dataUrl = "data:$mime;base64,$b64";
-
-        $payload = [
-            'model' => OPENAI_MODEL,
-            'messages' => [[
-                'role' => 'user',
-                'content' => [
-                    [
-                        'type' => 'text',
-                        'text' => "You are a medical AI assistant analysing a brain MRI image for signs of Multiple Sclerosis (MS). Look for hyperintense white matter lesions, periventricular plaques, or demyelination patterns. Respond ONLY with valid JSON in this exact format: {\"result\": \"Positive\" or \"Negative\", \"confidence\": number between 60 and 98, \"notes\": \"short clinical observation\"}"
-                    ],
-                    [
-                        'type' => 'image_url',
-                        'image_url' => ['url' => $dataUrl]
-                    ],
-                ],
-            ]],
-            'max_tokens' => 200,
-        ];
-
-        $ch = curl_init('https://api.openai.com/v1/chat/completions');
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST           => true,
-            CURLOPT_HTTPHEADER     => [
-                'Authorization: Bearer ' . OPENAI_API_KEY,
-                'Content-Type: application/json',
-            ],
-            CURLOPT_POSTFIELDS => json_encode($payload),
-            CURLOPT_TIMEOUT    => 60,
-        ]);
-        $response = curl_exec($ch);
-        $http     = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        if ($http !== 200 || !$response) return simulateMRI();
-
-        $json = json_decode($response, true);
-        $text = $json['choices'][0]['message']['content'] ?? '';
-
-        // Extract JSON object from response
-        if (preg_match('/\{.*\}/s', $text, $m)) {
-            $parsed = json_decode($m[0], true);
-            if (is_array($parsed) && isset($parsed['result'], $parsed['confidence'])) {
-                $result = in_array($parsed['result'], ['Positive', 'Negative'])
-                          ? $parsed['result'] : 'Negative';
-                return [
-                    'result'     => $result,
-                    'confidence' => round(max(50, min(99, (float)$parsed['confidence'])), 2),
-                    'notes'      => substr($parsed['notes'] ?? '', 0, 500),
-                ];
-            }
-        }
-    } catch (Throwable $e) {
-        // fall through to simulation
-    }
-    return simulateMRI();
+    return [
+        'result'     => $data['Prediction'] === 'MS' ? 'Positive' : 'Negative',
+        'confidence' => round($data['MS Probability'] * 100, 2),
+        'notes'      => $data['Prediction'] === 'MS'
+            ? 'Analysis indicates possible MS lesions.'
+            : 'No clear demyelinating lesions detected.',
+    ];
 }
 
 /** Generates a realistic simulated result when AI is unavailable. */
