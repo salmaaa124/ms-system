@@ -92,9 +92,9 @@ function analyseMRI($absoluteImagePath) {
 
     $data = json_decode($response, true);
 
-    // تحقق إن الرد صح
+     // تحقق إن الرد صح 
     if (!$data || !isset($data['Prediction'])) {
-        return simulateMRI(); // fallback
+        die("AI Server Error: " . $response);
     }
 
     return [
