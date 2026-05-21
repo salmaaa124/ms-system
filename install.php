@@ -52,7 +52,7 @@ try {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Install · MS</title>
+    <title>Install ·MS</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>

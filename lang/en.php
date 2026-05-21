@@ -4,7 +4,7 @@
  */
 return [
     // Branding
-    'app_name'          => ' MS',
+    'app_name'          => 'NeuroDiag MS',
     'app_tagline'       => 'Advanced MRI Analysis for Multiple Sclerosis Detection',
 
     // Navigation
@@ -62,7 +62,6 @@ return [
 
     // Team page
     'team_title'        => 'Our Team',
-    'team_subtitle'     => 'The minds behind  MS',
     'supervisor'        => 'Project Supervisor',
     'team_member'       => 'Team Member',
 

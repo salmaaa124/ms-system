@@ -1,5 +1,5 @@
 /**
- * NeuroScan MS - Client-side interactions.
+ * NeuroDiag MS - Client-side interactions.
  */
 
 // -------- Upload page: drag & drop + preview --------

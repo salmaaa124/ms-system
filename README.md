@@ -1,4 +1,4 @@
-# NeuroScan MS — MRI-based Multiple Sclerosis Detection
+# NeuroDiag MS — MRI-based Multiple Sclerosis Detection
 
 A professional, bilingual (English / Arabic) web application for doctors to upload brain MRI scans and receive AI-assisted MS detection results.  
 Built as a graduation project using **HTML · CSS · JavaScript · PHP · MySQL**.

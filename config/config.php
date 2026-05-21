@@ -17,7 +17,7 @@ define('MAX_UPLOAD_SIZE', 10 * 1024 * 1024); // 10 MB
 define('ALLOWED_EXTENSIONS', ['jpg', 'jpeg', 'png', 'webp']);
 
 // App meta
-define('APP_NAME', 'NeuroScan MS');
+define('APP_NAME', 'NeuroDiag MS');
 define('APP_VERSION', '1.0.0');
 
 // Session lifetime (seconds)

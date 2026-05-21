@@ -4,7 +4,7 @@
  */
 return [
     // Branding
-    'app_name'          => ' MS',
+    'app_name'          => 'نظام تشخيص التصلب المتعدد للجهاز العصبي',
     'app_tagline'       => 'تحليل متقدم للرنين المغناطيسي للكشف عن التصلب المتعدد',
 
     // Navigation
@@ -62,7 +62,6 @@ return [
 
     // Team page
     'team_title'        => 'فريق العمل',
-    'team_subtitle'     => 'العقول وراء MS',
     'supervisor'        => 'المشرف على المشروع',
     'team_member'       => 'عضو الفريق',
 
