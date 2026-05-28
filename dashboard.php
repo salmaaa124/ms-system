@@ -25,6 +25,16 @@ $statStmt = $db->prepare('
 $statStmt->execute([$user['id']]);
 $stats = $statStmt->fetch() ?: ['total' => 0, 'positive' => 0, 'negative' => 0, 'avg_conf' => 0];
 
+// Pagination
+$perPage = 10;
+$page    = max(1, (int)($_GET['page'] ?? 1));
+$offset  = ($page - 1) * $perPage;
+
+$countStmt = $db->prepare('SELECT COUNT(*) FROM images WHERE user_id = ?');
+$countStmt->execute([$user['id']]);
+$totalScans = (int)$countStmt->fetchColumn();
+$totalPages = (int)ceil($totalScans / $perPage);
+
 // Recent scans
 $listStmt = $db->prepare('
     SELECT i.id, i.image_path, i.upload_date, r.result, r.confidence_score
@@ -32,9 +42,9 @@ $listStmt = $db->prepare('
     LEFT JOIN results r ON r.image_id = i.id
     WHERE i.user_id = ?
     ORDER BY i.upload_date DESC
-    LIMIT 10
+    LIMIT ? OFFSET ?
 ');
-$listStmt->execute([$user['id']]);
+$listStmt->execute([$user['id'], $perPage, $offset]);
 $scans = $listStmt->fetchAll();
 
 $pageTitle = t('nav_dashboard');
@@ -128,6 +138,31 @@ include __DIR__ . '/includes/header.php';
                 </tbody>
             </table>
         </div>
+
+        <?php if ($totalPages > 1): ?>
+        <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:20px;flex-wrap:wrap;">
+            <?php if ($page > 1): ?>
+                <a href="?page=<?= $page - 1 ?>" class="btn btn-ghost" style="padding:6px 14px">
+                    <i class="fas fa-arrow-left"></i> Previous
+                </a>
+            <?php endif; ?>
+
+            <?php for ($p = 1; $p <= $totalPages; $p++): ?>
+                <a href="?page=<?= $p ?>"
+                   class="btn <?= $p === $page ? 'btn-primary' : 'btn-ghost' ?>"
+                   style="padding:6px 12px;min-width:36px;text-align:center;">
+                    <?= $p ?>
+                </a>
+            <?php endfor; ?>
+
+            <?php if ($page < $totalPages): ?>
+                <a href="?page=<?= $page + 1 ?>" class="btn btn-ghost" style="padding:6px 14px">
+                    Next <i class="fas fa-arrow-right"></i>
+                </a>
+            <?php endif; ?>
+        </div>
+        <?php endif; ?>
+
     <?php endif; ?>
 </div>
 

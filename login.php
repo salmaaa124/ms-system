@@ -72,9 +72,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </button>
         </form>
 
+        <?php /*يتعدل بعدين 
         <div class="demo-note">
             <i class="fas fa-circle-info"></i> <?= e(t('demo_account')) ?>
         </div>
+*/ ?>
     </div>
 </div>
 
