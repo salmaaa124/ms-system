@@ -75,7 +75,7 @@ function handleUpload($fileField) {
  * Returns ['result' => 'Positive'|'Negative', 'confidence' => float, 'notes' => string]
  */
 function analyseMRI($absoluteImagePath) {
-    $apiUrl = 'https://overrun-earpiece-fox.ngrok-free.dev/predict';
+    $apiUrl = 'https://ms-api1.onrender.com/predict';
 
     $curl = curl_init();
     curl_setopt_array($curl, [
