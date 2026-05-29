@@ -5,11 +5,11 @@
  * Edit these values to match your local MySQL setup (e.g. XAMPP).
  */
 
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'ms_detection_db');
-
+define('DB_HOST', getenv('MYSQLHOST'));
+define('DB_USER', getenv('MYSQLUSER'));
+define('DB_PASS', getenv('MYSQLPASSWORD'));
+define('DB_NAME', getenv('MYSQLDATABASE'));
+define('DB_PORT', getenv('MYSQLPORT') ?: '3306');
 /**
  * Returns a PDO connection.
  * Throws a clean error page if the DB is unreachable.
