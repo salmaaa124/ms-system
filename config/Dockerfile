@@ -1,0 +1,8 @@
+FROM webdevops/php-apache:8.2
+
+COPY . /app
+
+ENV WEB_DOCUMENT_ROOT=/app
+ENV PHP_DISPLAY_ERRORS=1
+
+EXPOSE 80
