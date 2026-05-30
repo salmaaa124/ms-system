@@ -4,6 +4,6 @@
     "builder": "RAILPACK"
   },
   "deploy": {
-    "startCommand": "php -d extension=pdo_mysql -S 0.0.0.0:$PORT"
+    "startCommand": "php -d extension=pdo_mysql.so -S 0.0.0.0:$PORT"
   }
 }
