@@ -1,5 +1,3 @@
-<?php echo extension_loaded('pdo_mysql') ? 'PDO OK' : 'PDO MISSING'; exit;
-?>
 <?php
 /**
  * Entry point - redirect based on auth state.
