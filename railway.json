@@ -1,9 +1,0 @@
-{
-  "$schema": "https://railway.app/railway.schema.json",
-  "build": {
-    "builder": "RAILPACK"
-  },
-  "deploy": {
-    "startCommand": "php -d extension=pdo_mysql.so -S 0.0.0.0:$PORT"
-  }
-}
